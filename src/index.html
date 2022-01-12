@@ -64,7 +64,11 @@
                 };
             };
 
-            state.bugStats.speed += 0.001;
+            // increase speed
+            state.bugStats.speed += 0.0001;
+            if (bugStats.maxCreationInterval >= bugStats.minCreationInterval) {
+                bugStats.maxCreationInterval -= 1;
+            }
 
             // check for Game Over
             if (!state.gameOver) {

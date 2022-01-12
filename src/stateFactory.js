@@ -12,6 +12,7 @@ function stateFactory() {
         },
         bugStats: {
             nextBugCreation: 0,
+            minCreationInterval: 400,
             maxCreationInterval: 2000,
             width: 52,
             height: 52,
