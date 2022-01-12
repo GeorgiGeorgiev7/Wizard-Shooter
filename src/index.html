@@ -21,9 +21,10 @@
     <script src="stateFactory.js"></script>
     <script src="gameFactory.js"></script>
     <script>
-        let state = stateFactory();
         let game = gameFactory();
+
         let wizardElement = game.createWizard();
+        let { wizardStats } = state;
 
         game.startScreen.addEventListener('click', startGame);
 
@@ -43,10 +44,12 @@
             let { bugStats } = state;
             let { gameOver, scoreScreen } = game;
 
-            //change wizard image
+            // Throw fireballs
             if (state.keys.Space) {
                 wizardElement.style.backgroundImage =
                     'url("/src/images/wizard-fire.png")';
+
+                game.throwFireball();
             } else {
                 wizardElement.style.backgroundImage =
                     'url("/src/images/wizard.png")';
@@ -83,7 +86,7 @@
             // Check for Game Over
             if (!state.gameOver) {
                 state.score += 1;
-                scoreScreen.textContent = state.score + ' pts.';
+                scoreScreen.textContent = 'Score ' + state.score + ' pts.';
                 window.requestAnimationFrame(gameLoop);
             } else {
                 alert(`Game Over! Score: ${state.score} points.`);
@@ -92,7 +95,7 @@
 
         // wizard movement
         function modifyWizardPos(state, game) {
-            let { wizardStats, keys } = state;
+            let { keys } = state;
             let { playScreen } = game;
 
             // gravity

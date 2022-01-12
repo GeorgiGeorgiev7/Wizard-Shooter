@@ -1,5 +1,5 @@
 function gameFactory() {
-    let { wizardStats, bugStats, fireballStats } = stateFactory();
+    let { wizardStats, bugStats, fireballStats } = state;
 
     // screens
     const startScreen = document.querySelector('.start-screen');
@@ -42,8 +42,8 @@ function gameFactory() {
             fireballElement.style.width = fireballStats.width + 'px';
             fireballElement.style.height = fireballStats.height + 'px';
 
-            fireballElement.style.left = playScreen.offsetWidth - fireballStats.width + 'px';
-            fireballElement.style.top = Math.floor(Math.random() * (playScreen.offsetHeight - fireballStats.height)) + 'px';
+            fireballElement.style.left = wizardStats.x + wizardStats.width + 'px';
+            fireballElement.style.top = wizardStats.y + wizardStats.width / 2.5 + 'px';
 
             playScreen.appendChild(fireballElement);
         }
