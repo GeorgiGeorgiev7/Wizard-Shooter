@@ -4,7 +4,8 @@ body {
 }
 
 .game-view {
-    background-color: skyblue;
+    background-image: url('/src/images/background-image.jpg');
+    background-size: cover;
     width: 100vw;
     height: 100vh;
 }
