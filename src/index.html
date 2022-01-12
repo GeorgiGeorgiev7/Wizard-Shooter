@@ -24,21 +24,20 @@
         let game = gameFactory();
 
         let wizardElement = game.createWizard();
-        let { wizardStats } = state;
+        let wizardStats = state.wizardStats;
 
         game.startScreen.addEventListener('click', startGame);
 
         document.addEventListener('keydown', onKeyDown);
         document.addEventListener('keyup', onKeyUp);
 
-        // start
+        // Start
         function startGame() {
             game.startScreen.classList.add('hidden');
             game.playScreen.classList.remove('hidden');
             window.requestAnimationFrame(gameLoop);
         }
-
-        // loop
+        // Loop
         function gameLoop(timestamp) {
             modifyWizardPos(state, game);
             let { bugStats, fireballStats } = state;
@@ -62,7 +61,7 @@
             // Move fireballs
             for (let fireball of document.querySelectorAll('.fireball')) {
                 let currentPos = parseInt(fireball.style.left);
-                if (currentPos > playScreen.offsetWidth) {
+                if (currentPos >= playScreen.offsetWidth - fireballStats.width - fireballStats.speed) {
                     fireball.remove()
                 } else {
                     fireball.style.left = currentPos + fireballStats.speed + 'px';
@@ -92,58 +91,57 @@
 
                 document.querySelectorAll('.fireball').forEach(fireball => {
                     if (checkForCollision(bug, fireball) == true) {
+                        state.score += state.pointsPerShot;
                         bug.remove();
                     };
                 })
             };
 
-            // Increase speed
-            state.bugStats.speed += 0.0001;
+            // Increase bugs speed
+            state.bugStats.speed += 0.002;
             if (bugStats.maxCreationInterval >= bugStats.minCreationInterval) {
                 bugStats.maxCreationInterval -= 1;
             }
 
             // Check for Game Over
             if (!state.gameOver) {
-                state.score += 1;
+                state.score += 5;
                 scoreScreen.textContent = 'Score ' + state.score + ' pts.';
                 window.requestAnimationFrame(gameLoop);
             } else {
                 alert(`Game Over! Score: ${state.score} points.`);
             }
         }
-
-        // wizard movement
+        // Wizard movement
         function modifyWizardPos(state, game) {
             let { keys } = state;
             let { playScreen } = game;
 
-            // gravity
+            // Gravity
             if (wizardStats.y + wizardStats.gravity < playScreen.offsetHeight - wizardStats.height) {
                 wizardStats.y += wizardStats.gravity;
             }
 
-            // action
+            // Action
             if (keys.KeyW && wizardStats.y > 0) {
                 wizardStats.y -= wizardStats.speed;
             }
             if (keys.KeyS &&
-                wizardStats.y + wizardStats.height < playScreen.offsetHeight) {
+                wizardStats.y + wizardStats.height < playScreen.offsetHeight - wizardStats.speed) {
                 wizardStats.y += wizardStats.speed;
             }
             if (keys.KeyA && wizardStats.x > 0) {
                 wizardStats.x -= wizardStats.speed;
             }
-            if (keys.KeyD && wizardStats.x + wizardStats.width < playScreen.offsetWidth) {
+            if (keys.KeyD && wizardStats.x + wizardStats.width < playScreen.offsetWidth - wizardStats.speed) {
                 wizardStats.x += wizardStats.speed;
             }
 
-            // render
+            // Render
             wizardElement.style.top = wizardStats.y + 'px';
             wizardElement.style.left = wizardStats.x + 'px';
         }
-
-        // collision checking
+        // Collision checking
         function checkForCollision(firstElement, secondElement) {
             let firstRect = firstElement.getBoundingClientRect();
             let secondRect = secondElement.getBoundingClientRect();
@@ -153,9 +151,9 @@
                 firstRect.right < secondRect.left ||
                 firstRect.left > secondRect.right);
         }
-
-        // keys
+        // Keys
         function onKeyDown(e) {
+            e.preventDefault();
             state.keys[e.code] = true;
         }
         function onKeyUp(e) {
