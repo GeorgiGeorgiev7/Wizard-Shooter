@@ -44,12 +44,16 @@
             let { bugStats, fireballStats } = state;
             let { gameOver, scoreScreen, playScreen } = game;
 
-            // Throw fireballs
+            // Throw fireball
             if (state.keys.Space) {
-                wizardElement.style.backgroundImage =
-                    'url("/src/images/wizard-fire.png")';
+                wizardElement.style.backgroundImage = 'url("/src/images/wizard-fire.png")';
 
-                game.throwFireball();
+                // Spawn fireball
+                if (fireballStats.nextFireballCreation < timestamp) {
+                    game.throwFireball();
+                    fireballStats.nextFireballCreation = timestamp + fireballStats.creationInterval;
+                }
+
             } else {
                 wizardElement.style.backgroundImage =
                     'url("/src/images/wizard.png")';

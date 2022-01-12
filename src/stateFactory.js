@@ -10,17 +10,19 @@ var state = {
         gravity: 2
     },
     bugStats: {
-        nextBugCreation: 0,
-        minCreationInterval: 400,
-        maxCreationInterval: 2000,
         width: 40,
         height: 40,
-        speed: 2
+        speed: 2,
+        nextBugCreation: 0,
+        minCreationInterval: 400,
+        maxCreationInterval: 2000
     },
     fireballStats: {
         width: 30,
         height: 30,
-        speed: 3
+        speed: 3,
+        nextFireballCreation: 0,
+        creationInterval: 200
     },
     keys: {}
 };
