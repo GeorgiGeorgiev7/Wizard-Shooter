@@ -38,19 +38,7 @@
             let { wizard } = state;
             let { wizardElement } = game;
 
-            // user input
-            if (state.keys.KeyW) {
-                wizard.y -= wizard.speed;
-            }
-            else if (state.keys.KeyS) {
-                wizard.y += wizard.speed;
-            }
-            if (state.keys.KeyA) {
-                wizard.x -= wizard.speed;
-            }
-            if (state.keys.KeyD) {
-                wizard.x += wizard.speed;
-            }
+            modifyWizardPos(state, game);
 
             // render
             wizardElement.style.top = wizard.y + 'px';
@@ -63,14 +51,34 @@
             }
         }
 
-        // movement
+        function modifyWizardPos(state, game) {
+            let { wizard } = state;
+            let { wizardElement } = game;
+
+            if (state.keys.KeyW && wizard.y > 0) {
+                wizard.y -= wizard.speed;
+            }
+            else if (state.keys.KeyS &&
+                wizard.y + wizard.height < game.playScreen.offsetHeight) {
+                wizard.y += wizard.speed;
+            }
+            if (state.keys.KeyA && wizard.x > 0) {
+                wizard.x -= wizard.speed;
+            }
+            if (state.keys.KeyD &&
+                wizard.x + wizard.width < game.playScreen.offsetWidth) {
+                wizard.x += wizard.speed;
+            }
+        }
+
+        // keys
         function onKeyDown(e) {
             state.keys[e.code] = true;
         }
 
         function onKeyUp(e) {
-            console.log(state.keys)
             state.keys[e.code] = false;
+            console.log(state.keys)
         }
 
     </script>

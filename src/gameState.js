@@ -4,7 +4,9 @@ function stateFactory() {
         wizard: {
             x: 100,
             y: 200,
-            speed: 5
+            width:  82,
+            height: 100,
+            speed: 10
         },
         keys: {}, 
         config: {
