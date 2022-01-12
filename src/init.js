@@ -11,6 +11,6 @@ function gameFactory() {
         playScreen: {
             get: () => playScreen
         },
-    })
+    });
     return factory;
 }
