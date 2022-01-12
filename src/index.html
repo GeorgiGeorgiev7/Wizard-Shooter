@@ -15,24 +15,24 @@
         <div class="start-screen">
             Start Game
         </div>
-        <div class="play-screen">
-
+        <div class="play-screen hidden">
+            Playing
         </div>
     </div>
 
+    <script src="init.js"></script>
     <script>
         // Current game state
         let state = {};
 
         // Current DOM elements
-        let elements = {
-            startScreen: document.querySelector('.start-screen')
-        };
+        let game = gameFactory();
 
         elements.startScreen.addEventListener('click', startGame);
 
         function startGame() {
-            console.log('game started');
+            game.startScreen.classList.add('hidden');
+            game.playScreen.classList.remove('hidden');
         }
 
     </script>
