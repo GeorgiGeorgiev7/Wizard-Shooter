@@ -13,8 +13,9 @@
 <body>
     <div class="game-view">
         <div class="start-screen">Start Game</div>
-        <div class="score-screen"></div>
-        <div class="play-screen hidden"></div>
+        <div class="play-screen hidden">
+            <div class="score-screen"></div>
+        </div>
     </div>
 
     <script src="stateFactory.js"></script>
@@ -39,7 +40,9 @@
         function gameLoop(timestamp) {
             modifyWizardPos(state, game);
             let { bugStats } = state;
-            // spawn bugs
+            let { wizardElement, gameOver, scoreScreen } = game;
+
+            // spawn bug
             if (bugStats.nextBugCreation < timestamp) {
                 game.spawnBug();
                 bugStats.nextBugCreation = timestamp + Math.floor(Math.random() * bugStats.maxCreationInterval);
@@ -55,19 +58,21 @@
                 }
 
                 // check collision                
-                if (checkForCollision(bug, game.wizardElement) == true) {
+                if (checkForCollision(bug, wizardElement) == true) {
                     state.gameOver = true;
                     break;
                 };
             };
 
+            state.bugStats.speed += 0.001;
+
             // check for Game Over
             if (!state.gameOver) {
                 state.score += 1;
-                game.scoreScreen.textContent = state.score + ' pts.';
+                scoreScreen.textContent = state.score + ' pts.';
                 window.requestAnimationFrame(gameLoop);
             } else {
-                alert(`Game Over~Score: ${state.score} points.`);
+                alert(`Game Over! Score: ${state.score} points.`);
             }
         }
 
