@@ -3,6 +3,7 @@ function gameFactory() {
 
     const startScreen = document.querySelector('.start-screen');
     const playScreen = document.querySelector('.play-screen');
+    const scoreScreen = document.querySelector('.score-screen');
     const wizardElement = createWizard(wizardStats.x, wizardStats.y);
 
     playScreen.appendChild(wizardElement);
@@ -10,6 +11,7 @@ function gameFactory() {
     let factory = {
         startScreen,
         playScreen,
+        scoreScreen,
         wizardElement,
         spawnBug: function () {
             let bugElement = document.createElement('div');

@@ -1,5 +1,6 @@
 function stateFactory() {
     let state = {
+        score: 0,
         gameOver: false,
         wizardStats: {
             x: 170,
