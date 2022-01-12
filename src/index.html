@@ -73,19 +73,23 @@
             let { wizardStats, keys } = state;
             let { wizardElement, playScreen } = game;
 
+            // gravity
+            if (wizardStats.y + wizardStats.gravity < playScreen.offsetHeight - wizardStats.height) {
+                wizardStats.y += wizardStats.gravity;
+            }
+
             // action
             if (keys.KeyW && wizardStats.y > 0) {
                 wizardStats.y -= wizardStats.speed;
             }
-            else if (keys.KeyS &&
+            if (keys.KeyS &&
                 wizardStats.y + wizardStats.height < playScreen.offsetHeight) {
                 wizardStats.y += wizardStats.speed;
             }
             if (keys.KeyA && wizardStats.x > 0) {
                 wizardStats.x -= wizardStats.speed;
             }
-            if (keys.KeyD &&
-                wizardStats.x + wizardStats.width < playScreen.offsetWidth) {
+            if (keys.KeyD && wizardStats.x + wizardStats.width < playScreen.offsetWidth) {
                 wizardStats.x += wizardStats.speed;
             }
 
