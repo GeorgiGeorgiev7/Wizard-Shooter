@@ -13,7 +13,7 @@ function stateFactory() {
             maxCreationInterval: 2000,
             width: 52,
             height: 52,
-            speed: 3
+            speed: 2
         },
         keys: {}, 
         config: {

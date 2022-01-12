@@ -41,8 +41,18 @@
             // spawn bugs
             if (bugStats.nextBugCreation < timestamp) {
                 game.spawnBug();
-                bugStats.nextBugCreation = timestamp + Math.round(Math.random() * bugStats.maxCreationInterval);
+                bugStats.nextBugCreation = timestamp + Math.floor(Math.random() * bugStats.maxCreationInterval);
             }
+
+            // Move bugs
+            document.querySelectorAll('.bug').forEach(bug => {
+                let currentPos = parseInt(bug.style.left);
+                if (currentPos < bugStats.speed) {
+                    bug.remove()
+                } else {
+                    bug.style.left = currentPos - bugStats.speed + 'px';
+                }
+            });
 
             // check for Game Over
             if (!state.gameOver) {
