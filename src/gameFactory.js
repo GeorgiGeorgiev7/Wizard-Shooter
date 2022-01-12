@@ -1,18 +1,28 @@
 function gameFactory() {
-    let { wizardStats, bugStats } = stateFactory();
+    let { wizardStats, bugStats, fireballStats } = stateFactory();
 
+    // screens
     const startScreen = document.querySelector('.start-screen');
     const playScreen = document.querySelector('.play-screen');
     const scoreScreen = document.querySelector('.score-screen');
-    const wizardElement = createWizard(wizardStats.x, wizardStats.y);
-
-    playScreen.appendChild(wizardElement);
 
     let factory = {
         startScreen,
         playScreen,
         scoreScreen,
-        wizardElement,
+        createWizard: function () {
+            let wizardElement = document.createElement('div');
+            wizardElement.classList.add('wizard');
+
+            wizardElement.style.width = wizardStats.width + 'px';
+            wizardElement.style.height = wizardStats.height + 'px';
+
+            wizardElement.style.top = wizardStats.y + 'px';
+            wizardElement.style.left = wizardStats.x + 'px';
+
+            playScreen.appendChild(wizardElement);
+            return wizardElement;
+        },
         spawnBug: function () {
             let bugElement = document.createElement('div');
             bugElement.classList.add('bug');
@@ -20,22 +30,24 @@ function gameFactory() {
             bugElement.style.width = bugStats.width + 'px';
             bugElement.style.height = bugStats.height + 'px';
 
-            bugElement.style.left = playScreen.offsetWidth - bugStats.width  + 'px';
+            bugElement.style.left = playScreen.offsetWidth - bugStats.width + 'px';
             bugElement.style.top = Math.floor(Math.random() * (playScreen.offsetHeight - bugStats.height)) + 'px';
 
             playScreen.appendChild(bugElement);
+        },
+        throwFireball: function () {
+            let fireballElement = document.createElement('div');
+            fireballElement.classList.add('fireball');
+
+            fireballElement.style.width = fireballStats.width + 'px';
+            fireballElement.style.height = fireballStats.height + 'px';
+
+            fireballElement.style.left = playScreen.offsetWidth - fireballStats.width + 'px';
+            fireballElement.style.top = Math.floor(Math.random() * (playScreen.offsetHeight - fireballStats.height)) + 'px';
+
+            playScreen.appendChild(fireballElement);
         }
     };
 
     return factory;
-}
-
-function createWizard(posX, posY) {
-    let wizardElement = document.createElement('div');
-    wizardElement.classList.add('wizard');
-
-    wizardElement.style.top = posY + 'px';
-    wizardElement.style.left = posX + 'px';
-
-    return wizardElement;
 }

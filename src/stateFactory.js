@@ -18,9 +18,11 @@ function stateFactory() {
             height: 52,
             speed: 2
         },
-        keys: {}, 
-        config: {
-        }
+        fireballStats: {
+            width: 25,
+            height: 25
+        },
+        keys: {}
     };
     return state;
 }

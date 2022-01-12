@@ -23,6 +23,7 @@
     <script>
         let state = stateFactory();
         let game = gameFactory();
+        let wizardElement = game.createWizard();
 
         game.startScreen.addEventListener('click', startGame);
 
@@ -40,9 +41,18 @@
         function gameLoop(timestamp) {
             modifyWizardPos(state, game);
             let { bugStats } = state;
-            let { wizardElement, gameOver, scoreScreen } = game;
+            let { gameOver, scoreScreen } = game;
 
-            // spawn bug
+            //change wizard image
+            if (state.keys.Space) {
+                wizardElement.style.backgroundImage =
+                    'url("/src/images/wizard-fire.png")';
+            } else {
+                wizardElement.style.backgroundImage =
+                    'url("/src/images/wizard.png")';
+            }
+
+            // Spawn bug
             if (bugStats.nextBugCreation < timestamp) {
                 game.spawnBug();
                 bugStats.nextBugCreation = timestamp + Math.floor(Math.random() * bugStats.maxCreationInterval);
@@ -64,13 +74,13 @@
                 };
             };
 
-            // increase speed
+            // Increase speed
             state.bugStats.speed += 0.0001;
             if (bugStats.maxCreationInterval >= bugStats.minCreationInterval) {
                 bugStats.maxCreationInterval -= 1;
             }
 
-            // check for Game Over
+            // Check for Game Over
             if (!state.gameOver) {
                 state.score += 1;
                 scoreScreen.textContent = state.score + ' pts.';
@@ -83,7 +93,7 @@
         // wizard movement
         function modifyWizardPos(state, game) {
             let { wizardStats, keys } = state;
-            let { wizardElement, playScreen } = game;
+            let { playScreen } = game;
 
             // gravity
             if (wizardStats.y + wizardStats.gravity < playScreen.offsetHeight - wizardStats.height) {
