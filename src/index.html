@@ -12,16 +12,15 @@
 
 <body>
     <div class="game-view">
-        <div class="start-screen">
-            Start Game
-        </div>
+        <div class="start-screen">Start Game</div>
         <div class="play-screen hidden"></div>
     </div>
 
-    <script src="init.js"></script>
+    <script src="gameState.js"></script>
+    <script src="gameFactory.js"></script>
     <script>
-        let state = {};
-        let game = gameFactory();
+        let getState = stateFactory(); let game = gameFactory();
+        let state = getState();
 
         game.startScreen.addEventListener('click', startGame);
 
