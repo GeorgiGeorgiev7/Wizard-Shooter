@@ -35,9 +35,16 @@
         }
 
         // loop
-        function gameLoop() {
+        function gameLoop(timestamp) {
             modifyWizardPos(state, game);
-            game.spawnBug();
+            let { bugStats } = state;
+            // spawn bugs
+            if (bugStats.nextBugCreation < timestamp) {
+                game.spawnBug();
+                bugStats.nextBugCreation = timestamp + Math.round(Math.random() * bugStats.maxCreationInterval);
+            }
+
+            // check for Game Over
             if (!state.gameOver) {
                 window.requestAnimationFrame(gameLoop);
             } else {
@@ -47,21 +54,21 @@
 
         // wizard movement
         function modifyWizardPos(state, game) {
-            let { wizardStats } = state;
+            let { wizardStats, keys } = state;
             let { wizardElement, playScreen } = game;
 
             // action
-            if (state.keys.KeyW && wizardStats.y > 0) {
+            if (keys.KeyW && wizardStats.y > 0) {
                 wizardStats.y -= wizardStats.speed;
             }
-            else if (state.keys.KeyS &&
+            else if (keys.KeyS &&
                 wizardStats.y + wizardStats.height < playScreen.offsetHeight) {
                 wizardStats.y += wizardStats.speed;
             }
-            if (state.keys.KeyA && wizardStats.x > 0) {
+            if (keys.KeyA && wizardStats.x > 0) {
                 wizardStats.x -= wizardStats.speed;
             }
-            if (state.keys.KeyD &&
+            if (keys.KeyD &&
                 wizardStats.x + wizardStats.width < playScreen.offsetWidth) {
                 wizardStats.x += wizardStats.speed;
             }

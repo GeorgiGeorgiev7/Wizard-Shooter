@@ -9,9 +9,11 @@ function stateFactory() {
             speed: 4
         },
         bugStats: {
+            nextBugCreation: 0,
+            maxCreationInterval: 2000,
             width: 52,
             height: 52,
-            speed: 4
+            speed: 3
         },
         keys: {}, 
         config: {
