@@ -24,6 +24,9 @@
 
         game.startScreen.addEventListener('click', startGame);
 
+        document.addEventListener('keydown', onKeyDown);
+        document.addEventListener('keyup', onKeyUp);
+
         function startGame() {
             game.startScreen.classList.add('hidden');
             game.playScreen.classList.remove('hidden');
@@ -32,12 +35,42 @@
         }
 
         function gameLoop() {
-            console.log('loop');
+            let { wizard } = state;
+            let { wizardElement } = game;
+
+            // user input
+            if (state.keys.KeyW) {
+                wizard.y -= wizard.speed;
+            }
+            else if (state.keys.KeyS) {
+                wizard.y += wizard.speed;
+            }
+            if (state.keys.KeyA) {
+                wizard.x -= wizard.speed;
+            }
+            if (state.keys.KeyD) {
+                wizard.x += wizard.speed;
+            }
+
+            // render
+            wizardElement.style.top = wizard.y + 'px';
+            wizardElement.style.left = wizard.x + 'px';
+
             if (!state.gameOver) {
                 window.requestAnimationFrame(gameLoop);
             } else {
                 alert('Game Over');
             }
+        }
+
+        // movement
+        function onKeyDown(e) {
+            state.keys[e.code] = true;
+        }
+
+        function onKeyUp(e) {
+            console.log(state.keys)
+            state.keys[e.code] = false;
         }
 
     </script>
