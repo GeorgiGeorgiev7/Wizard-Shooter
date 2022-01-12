@@ -1,5 +1,6 @@
 function stateFactory() {
     let state = {
+        gameOver: false,
         wizard: {
             x: 100,
             y: 200

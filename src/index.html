@@ -19,14 +19,25 @@
     <script src="gameState.js"></script>
     <script src="gameFactory.js"></script>
     <script>
-        let getState = stateFactory(); let game = gameFactory();
-        let state = getState();
+        let getState = stateFactory(); let state = getState();
+        let game = gameFactory();
 
         game.startScreen.addEventListener('click', startGame);
 
         function startGame() {
             game.startScreen.classList.add('hidden');
             game.playScreen.classList.remove('hidden');
+
+            window.requestAnimationFrame(gameLoop);
+        }
+
+        function gameLoop() {
+            console.log('loop');
+            if (!state.gameOver) {
+                window.requestAnimationFrame(gameLoop);
+            } else {
+                alert('Game Over');
+            }
         }
 
     </script>

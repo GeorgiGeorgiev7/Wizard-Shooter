@@ -3,9 +3,9 @@ function gameFactory() {
 
     let { wizard } = getState();
 
-    let startScreen = document.querySelector('.start-screen');
-    let playScreen = document.querySelector('.play-screen');
-    let wizardElement = createWizard(wizard.x, wizard.y);
+    const startScreen = document.querySelector('.start-screen');
+    const playScreen = document.querySelector('.play-screen');
+    const wizardElement = createWizard(wizard.x, wizard.y);
 
     playScreen.appendChild(wizardElement);
 
