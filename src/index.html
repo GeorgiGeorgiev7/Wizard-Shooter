@@ -41,8 +41,8 @@
         // loop
         function gameLoop(timestamp) {
             modifyWizardPos(state, game);
-            let { bugStats } = state;
-            let { gameOver, scoreScreen } = game;
+            let { bugStats, fireballStats } = state;
+            let { gameOver, scoreScreen, playScreen } = game;
 
             // Throw fireballs
             if (state.keys.Space) {
@@ -54,6 +54,16 @@
                 wizardElement.style.backgroundImage =
                     'url("/src/images/wizard.png")';
             }
+
+            // Move fireballs
+            for (let fireball of document.querySelectorAll('.fireball')) {
+                let currentPos = parseInt(fireball.style.left);
+                if (currentPos > playScreen.offsetWidth) {
+                    fireball.remove()
+                } else {
+                    fireball.style.left = currentPos + fireballStats.speed + 'px';
+                }
+            };
 
             // Spawn bug
             if (bugStats.nextBugCreation < timestamp) {
@@ -75,6 +85,12 @@
                     state.gameOver = true;
                     break;
                 };
+
+                document.querySelectorAll('.fireball').forEach(fireball => {
+                    if (checkForCollision(bug, fireball) == true) {
+                        bug.remove();
+                    };
+                })
             };
 
             // Increase speed

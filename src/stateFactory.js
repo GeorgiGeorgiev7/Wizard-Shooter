@@ -19,7 +19,8 @@ var state = {
     },
     fireballStats: {
         width: 30,
-        height: 30
+        height: 30,
+        speed: 3
     },
     keys: {}
 };
