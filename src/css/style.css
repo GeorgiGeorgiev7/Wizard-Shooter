@@ -27,11 +27,19 @@ body {
     height: 100%;
 }
 
+
+.bug {
+    position: absolute;
+    background-image: url('/src/images/bug.png');
+    background-size: cover;
+}
+
 .wizard {
     position: absolute;
     background-image: url('/src/images/wizard.png');
     background-size: cover;
-    margin: 0;
+    width: 82px;
+    height: 100px;
 }
 
 .hidden {

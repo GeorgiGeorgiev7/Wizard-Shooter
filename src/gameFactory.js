@@ -1,29 +1,39 @@
 function gameFactory() {
-    let getState = stateFactory();
-    let { wizard } = getState();
+    let { wizardStats, bugStats } = stateFactory();
 
     const startScreen = document.querySelector('.start-screen');
     const playScreen = document.querySelector('.play-screen');
-    const wizardElement = createWizard(wizard.x, wizard.y, wizard.height, wizard.width);
+    const wizardElement = createWizard(wizardStats.x, wizardStats.y);
 
     playScreen.appendChild(wizardElement);
 
     let factory = {
         startScreen,
         playScreen,
-        wizardElement
+        wizardElement,
+        spawnBug: function () {
+            let bugElement = document.createElement('div');
+            bugElement.classList.add('bug');
+
+            bugElement.style.width = bugStats.width + 'px';
+            bugElement.style.height = bugStats.height + 'px';
+
+            bugElement.style.left = playScreen.offsetWidth - bugStats.width  + 'px';
+            bugElement.style.top = Math.floor(Math.random() * (playScreen.offsetHeight - bugStats.height)) + 'px';
+
+            playScreen.appendChild(bugElement);
+        }
     };
-    
+
     return factory;
 }
 
-function createWizard(posX, posY, height, width) {
+function createWizard(posX, posY) {
     let wizardElement = document.createElement('div');
     wizardElement.classList.add('wizard');
+
     wizardElement.style.top = posY + 'px';
     wizardElement.style.left = posX + 'px';
-    wizardElement.style.height = height + 'px';
-    wizardElement.style.width = width + 'px';
 
     return wizardElement;
 }

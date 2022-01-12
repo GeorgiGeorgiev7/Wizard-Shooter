@@ -16,10 +16,10 @@
         <div class="play-screen hidden"></div>
     </div>
 
-    <script src="gameState.js"></script>
+    <script src="stateFactory.js"></script>
     <script src="gameFactory.js"></script>
     <script>
-        let getState = stateFactory(); let state = getState();
+        let state = stateFactory();
         let game = gameFactory();
 
         game.startScreen.addEventListener('click', startGame);
@@ -27,23 +27,17 @@
         document.addEventListener('keydown', onKeyDown);
         document.addEventListener('keyup', onKeyUp);
 
+        // start
         function startGame() {
             game.startScreen.classList.add('hidden');
             game.playScreen.classList.remove('hidden');
-
             window.requestAnimationFrame(gameLoop);
         }
 
+        // loop
         function gameLoop() {
-            let { wizard } = state;
-            let { wizardElement } = game;
-
             modifyWizardPos(state, game);
-
-            // render
-            wizardElement.style.top = wizard.y + 'px';
-            wizardElement.style.left = wizard.x + 'px';
-
+            game.spawnBug();
             if (!state.gameOver) {
                 window.requestAnimationFrame(gameLoop);
             } else {
@@ -51,34 +45,38 @@
             }
         }
 
+        // wizard movement
         function modifyWizardPos(state, game) {
-            let { wizard } = state;
-            let { wizardElement } = game;
+            let { wizardStats } = state;
+            let { wizardElement, playScreen } = game;
 
-            if (state.keys.KeyW && wizard.y > 0) {
-                wizard.y -= wizard.speed;
+            // action
+            if (state.keys.KeyW && wizardStats.y > 0) {
+                wizardStats.y -= wizardStats.speed;
             }
             else if (state.keys.KeyS &&
-                wizard.y + wizard.height < game.playScreen.offsetHeight) {
-                wizard.y += wizard.speed;
+                wizardStats.y + wizardStats.height < playScreen.offsetHeight) {
+                wizardStats.y += wizardStats.speed;
             }
-            if (state.keys.KeyA && wizard.x > 0) {
-                wizard.x -= wizard.speed;
+            if (state.keys.KeyA && wizardStats.x > 0) {
+                wizardStats.x -= wizardStats.speed;
             }
             if (state.keys.KeyD &&
-                wizard.x + wizard.width < game.playScreen.offsetWidth) {
-                wizard.x += wizard.speed;
+                wizardStats.x + wizardStats.width < playScreen.offsetWidth) {
+                wizardStats.x += wizardStats.speed;
             }
+
+            // render
+            wizardElement.style.top = wizardStats.y + 'px';
+            wizardElement.style.left = wizardStats.x + 'px';
         }
 
         // keys
         function onKeyDown(e) {
             state.keys[e.code] = true;
         }
-
         function onKeyUp(e) {
             state.keys[e.code] = false;
-            console.log(state.keys)
         }
 
     </script>
