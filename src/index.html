@@ -19,6 +19,23 @@
 
         </div>
     </div>
+
+    <script>
+        // Current game state
+        let state = {};
+
+        // Current DOM elements
+        let elements = {
+            startScreen: document.querySelector('.start-screen')
+        };
+
+        elements.startScreen.addEventListener('click', startGame);
+
+        function startGame() {
+            console.log('game started');
+        }
+
+    </script>
 </body>
 
 </html>
