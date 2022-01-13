@@ -16,10 +16,11 @@
         <div class="play-screen hidden">
             <div class="score-screen"></div>
         </div>
+        <div class="end-screen hidden">Game Over</div>
     </div>
 
-    <script src="stateFactory.js"></script>
-    <script src="gameFactory.js"></script>
+    <script src="./factories/stateFactory.js"></script>
+    <script src="./factories/gameFactory.js"></script>
     <script>
         let game = gameFactory();
 
@@ -106,12 +107,13 @@
             }
 
             // Check for Game Over
-            if (!state.gameOver) {
-                state.score += 5;
+            if (state.gameOver) {
+                game.playScreen.classList.add('hidden');
+                game.endScreen.classList.remove('hidden');
+            } else {
+                state.score += 7;
                 scoreScreen.textContent = 'Score ' + state.score + ' pts.';
                 window.requestAnimationFrame(gameLoop);
-            } else {
-                alert(`Game Over! Score: ${state.score} points.`);
             }
         }
         // Wizard movement

@@ -5,11 +5,13 @@ function gameFactory() {
     const startScreen = document.querySelector('.start-screen');
     const playScreen = document.querySelector('.play-screen');
     const scoreScreen = document.querySelector('.score-screen');
+    const endScreen = document.querySelector('.end-screen');
 
     let factory = {
         startScreen,
         playScreen,
         scoreScreen,
+        endScreen,
         createWizard: function () {
             let wizardElement = document.createElement('div');
             wizardElement.classList.add('wizard');
