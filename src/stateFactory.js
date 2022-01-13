@@ -14,6 +14,7 @@ var state = {
         width: 40,
         height: 40,
         speed: 3,
+        maxSpeed: 7,
         nextBugCreation: 0,
         minCreationInterval: 400,
         maxCreationInterval: 2000

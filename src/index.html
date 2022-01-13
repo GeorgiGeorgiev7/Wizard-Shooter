@@ -77,8 +77,8 @@
             // Move bugs
             for (let bug of document.querySelectorAll('.bug')) {
                 let currentPos = parseInt(bug.style.left);
-                if (currentPos == -bugStats.width) {
-                    bug.remove()
+                if (currentPos <= -bugStats.width - 200) {
+                    bug.remove();
                 } else {
                     bug.style.left = currentPos - bugStats.speed + 'px';
                 }
@@ -98,7 +98,9 @@
             };
 
             // Increase bugs speed
-            state.bugStats.speed += 0.002;
+            if (bugStats.speed <= bugStats.maxSpeed) {
+                bugStats.speed += 0.002;
+            }
             if (bugStats.maxCreationInterval >= bugStats.minCreationInterval) {
                 bugStats.maxCreationInterval -= 1;
             }
