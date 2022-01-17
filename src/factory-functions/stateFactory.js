@@ -24,7 +24,7 @@ export var state = {
         height: 30,
         speed: 7,
         nextFireballCreation: 0,
-        creationInterval: 5
+        creationInterval: 300
     },
     keys: {}
 };
