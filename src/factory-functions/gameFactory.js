@@ -1,4 +1,6 @@
-function gameFactory() {
+import { state } from './stateFactory.js';
+
+export function gameFactory() {
     let { wizardStats, bugStats, fireballStats } = state;
 
     // screens

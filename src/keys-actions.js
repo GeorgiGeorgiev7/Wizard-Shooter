@@ -1,4 +1,4 @@
-import { state } from "./factory-functions/stateFactory";
+import { state } from './factory-functions/stateFactory.js';
 
 
 export function onKeyDown(e) {

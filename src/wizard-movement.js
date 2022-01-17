@@ -1,4 +1,4 @@
-import { wizardElement, wizardStats } from "./app";
+import { wizardElement, wizardStats } from './app.js';
 
 
 export function modifyWizardPos(state, game) {

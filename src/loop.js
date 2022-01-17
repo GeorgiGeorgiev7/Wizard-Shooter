@@ -1,7 +1,8 @@
-import { state } from './factory-functions/stateFactory';
-import { game } from './app';
-import { modifyWizardPos } from './wizard-movement';
-import { checkForCollision } from './collision-checker';
+import { state } from './factory-functions/stateFactory.js';
+import { game } from './app.js';
+import { modifyWizardPos } from './wizard-movement.js';
+import { checkForCollision } from './collision-checker.js';
+import { wizardElement } from './app.js';
 
 
 export function gameLoop(timestamp) {
