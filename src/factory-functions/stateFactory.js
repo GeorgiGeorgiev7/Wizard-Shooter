@@ -1,4 +1,4 @@
-var state = {
+export var state = {
     score: 0,
     pointsPerShot: 5000,
     gameOver: false,
@@ -24,7 +24,7 @@ var state = {
         height: 30,
         speed: 7,
         nextFireballCreation: 0,
-        creationInterval: 400
+        creationInterval: 5
     },
     keys: {}
 };
