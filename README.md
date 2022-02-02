@@ -1,2 +1,2 @@
-# wizard-game
+# Wizard-Game
 JS Advanced Workshop
