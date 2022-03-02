@@ -21,7 +21,7 @@ export function gameLoop(timestamp) {
 
     } else {
         wizardElement.style.backgroundImage =
-            'url("/src/images/wizard.png")';
+            'url("../images/wizard.png")';
     }
 
     // Move fireballs

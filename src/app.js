@@ -8,9 +8,6 @@ export let wizardElement = game.createWizard();
 export let wizardStats = state.wizardStats;
 
 game.startScreen.addEventListener('click', startGame);
-console.log('----------------');
-console.log(game.startScreen);
-console.log('----------------');
 
 document.addEventListener('keydown', onKeyDown);
 document.addEventListener('keyup', onKeyUp);
